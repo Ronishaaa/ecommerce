@@ -102,6 +102,8 @@
                     <td><c:out value="${product.product_description}"/></td>
                     <td><c:out value="${product.unit_price}"/></td>
                     <td><c:out value="${product.stock}"/></td>
+                    
+                    
                 </tr>
             </c:forEach>
         </tbody>
@@ -137,6 +139,17 @@
                     <td><c:out value="${product.product_description}"/></td>
                     <td><c:out value="${product.unit_price}"/></td>
                     <td><c:out value="${product.stock}"/></td>
+                    
+                    <td><form action="<%=request.getContextPath()%>/ProductEdit" method="post">
+    
+				    <input type="hidden" name="product_id" value="${product.product_id }">
+				    <button type="submit">Edit</button>
+				</form>
+				</td>
+				    <td><form action="<%=request.getContextPath()%>/ProductDelete" method="post">
+				    <input type="hidden" name="product_id" value="${product.product_id}">
+				    <button type="submit">Delete</button>
+				</form></td>
                 </tr>
             </c:forEach>
         </tbody>

@@ -1,41 +1,35 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import appConstant.ViewPages;
-import model.Product;
 import service.ProductDao;
 
 /**
- * Servlet implementation class UpdateProduct
+ * Servlet implementation class DeleteProduct
  */
-@WebServlet(asyncSupported = true, urlPatterns = { "/ProductUpdate" })
-public class UpdateProduct extends HttpServlet {
+@WebServlet("/ProductDelete")
+public class DeleteProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductDao dao;
-	
 	
 	@Override
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 		super.init();
-		dao=new ProductDao();
+		dao = new ProductDao();
 	}
+       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateProduct() {
+    public DeleteProduct() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -53,33 +47,20 @@ public class UpdateProduct extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		HttpSession session=request.getSession(false);
-		int product_id=(Integer)(session.getAttribute("product_id"));
-		Product product=new Product();
-		product.setProduct_name(request.getParameter("productName"));
-		product.setProduct_description(request.getParameter("productDescription"));
-		product.setUnit_price(Integer.parseInt(request.getParameter("unitPrice")));
-		
-		product.setStock(Integer.parseInt(request.getParameter("stock")));
-		product.setProduct_id(product_id);
-		try {
-			int row=dao.updateProduct(product);
-			if(row>0)
-			{
-				response.sendRedirect(request.getContextPath()+"/ManagementUser");
-			}
-			else
-			{
-				request.getRequestDispatcher(ViewPages.UPDATE_PRODUCT_PAGE).forward(request, response);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
+int product_id = Integer.parseInt(request.getParameter("product_id"));
+        
+        try {
+            int row = dao.deleteProductById(product_id);
+            if (row > 0) {
+                response.sendRedirect(request.getContextPath() + "/ManagementUser");
+            } else {
+                // Handle error (e.g., product not found)
+            }
+        } catch (SQLException e) {
+            // Handle SQL exception
+            e.printStackTrace();
+        }
+    
 	}
-
-	
 
 }
