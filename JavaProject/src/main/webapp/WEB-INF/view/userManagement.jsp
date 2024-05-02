@@ -130,6 +130,8 @@
                 <th>Description</th>
                 <th>Price</th>
                 <th>Stock</th>
+                <th/>
+                <th/>
             </tr>
         </thead>
         <tbody>

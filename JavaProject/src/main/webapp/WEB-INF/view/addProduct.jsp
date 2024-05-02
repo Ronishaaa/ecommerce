@@ -12,14 +12,18 @@
 <div class="container">
 	<h1>Add New Product</h1>
 
-<form action="${pageContext.request.contextPath}/AddNewProduct" method="post">
+<form action="${pageContext.request.contextPath}/AddNewProduct" method="post" enctype="multipart/form-data">
    
    <div class="input-field">
     <label for="productName">Product Name:</label>
     <input type="text" id="productName" name="productName" required>
    </div>
 
-
+<div class="input-field">
+    <label for="productImage">Product Image:</label>
+    <input type="file" id="productImage" accept="image/*" name="productImage" required>
+   </div>
+   
 <div class="input-field">
     <label for="productDescription">Product Description:</label>
     <textarea id="productDescription" name="productDescription" required></textarea>

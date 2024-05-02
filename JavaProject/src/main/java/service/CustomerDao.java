@@ -1,30 +1,34 @@
-//package service;
-//
-//import java.sql.Connection;
-//import java.sql.Date;
-//import java.sql.PreparedStatement;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import model.Student;
-//import utils.DatabaseConnectivity;
+package service;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import model.Customer;
+import utils.DatabaseConnectivity;
 //import utils.PasswordHash;
-//
-//public class CustomerDao {
-//	private Connection conn;
-//	private PreparedStatement statement;
-//	private ResultSet resultSet;
-//	private boolean isSuccess;
-//	private static final String[] errorMessage = new String[2];
-//	private static final String insert_query = "insert into student_register"
-//			+ "(firstName,lastName,username,dob,gender,email,phoneNumber,subject,password)"
-//			+ " values(?,?,?,?,?,?,?,?,?)";
-//
-//	public StudentDao() {
-//		conn = DatabaseConnectivity.getDbConnection();
-//	}
+
+public class CustomerDao {
+	private Connection conn;
+	private PreparedStatement statement;
+	private ResultSet resultSet;
+	private boolean isSuccess;
+	private static final String[] errorMessage = new String[2];
+	private static final String insert_query = "insert into student_register"
+			+ "(firstName,lastName,username,dob,gender,email,phoneNumber,subject,password)"
+			+ " values(?,?,?,?,?,?,?,?,?)";
+
+	public CustomerDao() {
+		conn = DatabaseConnectivity.getDbConnection();
+	}
+	public boolean studentLogin(String username, String password) {
+		
+	}
+	
 //
 //	public boolean saveStudent(Student student) {
 //		try {
@@ -150,5 +154,5 @@
 //		}
 //		return listOfStudent;
 //	}
-//	
-//}
+	
+}

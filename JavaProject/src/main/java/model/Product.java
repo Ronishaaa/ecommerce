@@ -21,6 +21,7 @@ public class Product implements Serializable{
 	private String product_description;
 	private int unit_price;
 	private int stock;
+	private byte[] product_image;
 
 
 	public Product() {
@@ -65,6 +66,14 @@ public class Product implements Serializable{
 
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+
+	public byte[] getProduct_image() {
+		return product_image;
+	}
+
+	public void setProduct_image(byte[] product_image) {
+		this.product_image = product_image;
 	}
 
 	

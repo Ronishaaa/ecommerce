@@ -17,45 +17,45 @@ public class ProductDao {
 	private boolean isSuccess;
 	private static final String[] errorMessage = new String[2];
 	private static final String insert_query = "insert into product"
-			+ "(product_name,product_description,unit_price,stock)"
-			+ " values(?,?,?,?)";
+			+ "(product_name,product_description,unit_price,stock,image)"
+			+ " values(?,?,?,?,?)";
 
 	public ProductDao() {
 		conn = DatabaseConnectivity.getDbConnection();
 	}
 
-	public boolean saveProduct(Product product) {
-		try {
-			
-			statement = this.conn.prepareStatement("select count(*) from product");
-			resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				if (check(product)) {
-					isSuccess = false;
-				} else {
-					int row = setData(product);
-					if (row > 0) {
-						isSuccess = true;
-					} else {
-						isSuccess = false;
-					}
-				}
+//	public boolean saveProduct(Product product) {
+//		try {
+//			
+//			statement = this.conn.prepareStatement("select count(*) from product");
+//			resultSet = statement.executeQuery();
+//			if (resultSet.next()) {
+//				if (check(product)) {
+//					isSuccess = false;
+//				} else {
+//					int row = setData(product);
+//					if (row > 0) {
+//						isSuccess = true;
+//					} else {
+//						isSuccess = false;
+//					}
+//				}
+//
+//			} else {
+//				int row = setData(product);
+//				if (row > 0) {
+//					isSuccess = true;
+//				}
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//
+//		return isSuccess;
+//	}
 
-			} else {
-				int row = setData(product);
-				if (row > 0) {
-					isSuccess = true;
-				}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return isSuccess;
-	}
-
-	public int setData(Product product) {
+	public boolean setData(Product product) {
 		int row = 0;
 		try {
 			statement = conn.prepareStatement(insert_query);
@@ -63,37 +63,42 @@ public class ProductDao {
 			statement.setString(2, product.getProduct_description());
 			statement.setInt(3, product.getUnit_price());
 			statement.setInt(4, product.getStock());
-		
+			statement.setBytes(5, product.getProduct_image());
 			row = statement.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return row;
-	}
-
-	public boolean check(Product product) {
-		boolean isFind = false;
-		try {
-			statement = conn.prepareStatement("select product_name,product_description from product");
-			resultSet = statement.executeQuery();
-
-			while (resultSet.next()) {
-				if (product.getProduct_name().equals(resultSet.getString("product_name"))) {
-					isFind = true;
-					break;
-				} else if (product.getProduct_description().equals(resultSet.getString("product_description"))) {
-					isFind = true;
-					break;
-		
-				}
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (row > 0 ) {
+			isSuccess = true;
+		}else {
+			isSuccess = false;
 		}
-		return isFind;
+		return isSuccess;
 	}
+
+//	public boolean check(Product product) {
+//		boolean isFind = false;
+//		try {
+//			statement = conn.prepareStatement("select product_name,product_description from product");
+//			resultSet = statement.executeQuery();
+//
+//			while (resultSet.next()) {
+//				if (product.getProduct_name().equals(resultSet.getString("product_name"))) {
+//					isFind = true;
+//					break;
+//				} else if (product.getProduct_description().equals(resultSet.getString("product_description"))) {
+//					isFind = true;
+//					break;
+//		
+//				}
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return isFind;
+//	}
 
 //	public boolean productLogin(String username, String password) throws SQLException {
 //		statement = conn.prepareStatement("select username,password,role_id from product_register where username=?");
